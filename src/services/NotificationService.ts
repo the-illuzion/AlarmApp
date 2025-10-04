@@ -1,4 +1,5 @@
 import PushNotification from 'react-native-push-notification';
+import {Alarm} from '../types';
 
 class NotificationService {
   private static instance: NotificationService;
@@ -42,6 +43,9 @@ class NotificationService {
               break;
             case 'location_check':
               // Location check reminder
+              break;
+            case 'regular_alarm':
+              // Regular alarm triggered
               break;
           }
         }
@@ -87,6 +91,43 @@ class NotificationService {
       },
       (created: boolean) => console.log(`Channel created: ${created}`)
     );
+  }
+
+  scheduleAlarm(alarm: Alarm) {
+    if (!alarm.isEnabled) return;
+
+    const [hours, minutes] = alarm.time.split(':').map(Number);
+    const now = new Date();
+    const alarmTime = new Date();
+    alarmTime.setHours(hours, minutes, 0, 0);
+
+    // If alarm time has passed today, schedule for tomorrow
+    if (alarmTime <= now) {
+      alarmTime.setDate(alarmTime.getDate() + 1);
+    }
+
+    PushNotification.localNotificationSchedule({
+      id: alarm.id,
+      title: `⏰ ${alarm.label || 'Alarm'}`,
+      message: `Time for: ${alarm.label || 'Alarm'}`,
+      date: alarmTime,
+      channelId: 'gym-alarm-channel',
+      soundName: alarm.sound || 'default',
+      playSound: true,
+      vibrate: true,
+      userInfo: {
+        type: 'regular_alarm',
+        alarmId: alarm.id,
+      },
+      repeatType: 'day', // Repeat daily for now, can be extended for days array
+    });
+
+    console.log(`Alarm scheduled for ${alarmTime.toLocaleString()}`);
+  }
+
+  cancelAlarm(alarmId: string) {
+    PushNotification.cancelLocalNotification(alarmId);
+    console.log(`Cancelled alarm: ${alarmId}`);
   }
 
   scheduleGymAlarm(alarmId: string, gymTime: string) {

@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useAlarm} from '../context/AlarmContext';
+import Chatbot from '../components/Chatbot';
 
 const HomeScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -169,6 +170,10 @@ const HomeScreen: React.FC = () => {
         )}
       </View>
 
+      <View style={styles.chatbotContainer}>
+        <Chatbot />
+      </View>
+
       <View style={styles.settingsContainer}>
         <TouchableOpacity
           style={styles.settingsButton}
@@ -312,6 +317,11 @@ const styles = StyleSheet.create({
     color: '#88C0D0',
     fontSize: 16,
     fontWeight: '500',
+  },
+  chatbotContainer: {
+    flex: 1,
+    marginHorizontal: 20,
+    marginBottom: 10,
   },
 });
 

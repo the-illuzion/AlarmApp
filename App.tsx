@@ -18,6 +18,7 @@ import SettingsScreen from './src/screens/SettingsScreen';
 
 // Import context
 import {AlarmProvider} from './src/context/AlarmContext';
+import {AlarmListProvider} from './src/context/AlarmListContext';
 
 const Stack = createStackNavigator();
 
@@ -27,7 +28,8 @@ function App() {
       <SafeAreaProvider>
         <StatusBar barStyle="light-content" backgroundColor="#2E3440" />
         <AlarmProvider>
-          <NavigationContainer>
+          <AlarmListProvider>
+            <NavigationContainer>
             <Stack.Navigator
               initialRouteName="Home"
               screenOptions={{
@@ -51,6 +53,7 @@ function App() {
               />
             </Stack.Navigator>
           </NavigationContainer>
+          </AlarmListProvider>
         </AlarmProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>

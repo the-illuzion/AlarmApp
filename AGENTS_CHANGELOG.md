@@ -30,3 +30,7 @@
 [2025-10-04 21:23] Simplified changelog to remove GitHub details | Reason: Focus on code changes per user feedback | Files: AGENTS_CHANGELOG.md | Actions: Commit simplification
 
 [2025-10-04 21:24] Committed changelog simplification | Reason: Save concise change log | Files: AGENTS_CHANGELOG.md | Actions: None
+
+[2025-10-04 21:25] Updated AGENTS.md with v1.1.0 chatbot features | Reason: Document new project phase | Files: AGENTS.md | Actions: Commit update
+
+[2025-10-04 21:26] Committed AGENTS.md update | Reason: Save updated project overview | Files: AGENTS.md | Actions: Start chatbot implementation
