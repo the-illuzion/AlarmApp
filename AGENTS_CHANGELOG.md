@@ -26,3 +26,7 @@
 [2025-10-04 21:21] Updated changelog with commit details | Reason: Track documentation commit | Files: AGENTS_CHANGELOG.md | Actions: Commit update
 
 [2025-10-04 21:22] Committed changelog update | Reason: Save latest change tracking | Files: AGENTS_CHANGELOG.md | Actions: None
+
+[2025-10-04 21:23] Simplified changelog to remove GitHub details | Reason: Focus on code changes per user feedback | Files: AGENTS_CHANGELOG.md | Actions: Commit simplification
+
+[2025-10-04 21:24] Committed changelog simplification | Reason: Save concise change log | Files: AGENTS_CHANGELOG.md | Actions: None
