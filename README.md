@@ -1,10 +1,43 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# AlarmApp 🔔⏰️🏋️‍♂️
 
-# Getting Started
+A React Native alarm app designed for gym workouts and fitness routines, with background notifications and location tracking.
+
+## Features
+
+- ⏰ Customizable alarms for workout timers
+- 🔔 Push notifications via Firebase
+- 📍 Location-based triggers (optional)
+- 📳 Vibration and wake lock for reliable alarms
+- 🔄 Background service for persistent alarms
+- 📱 Cross-platform (Android & iOS)
+
+## Prerequisites
+
+- Node.js (v14 or later)
+- React Native development environment ([Setup Guide](https://reactnative.dev/docs/set-up-your-environment))
+- Android Studio or Xcode
+- Firebase project ([Firebase Console](https://console.firebase.google.com/))
+
+## Firebase Setup
+
+1. Create a new Firebase project at [Firebase Console](https://console.firebase.google.com/).
+2. Add an Android app with package name `com.alarmappnew`.
+3. Download `google-services.json` and place it in `android/app/`.
+4. Enable Firebase Messaging in the console.
+
+## Getting Started
 
 > **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
 
-## Step 1: Start Metro
+### Step 1: Install Dependencies
+
+```sh
+npm install
+# or
+yarn install
+```
+
+### Step 2: Start Metro
 
 First, you will need to run **Metro**, the JavaScript build tool for React Native.
 
@@ -18,11 +51,11 @@ npm start
 yarn start
 ```
 
-## Step 2: Build and run your app
+### Step 3: Build and run your app
 
 With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
 
-### Android
+#### Android
 
 ```sh
 # Using npm
@@ -32,7 +65,7 @@ npm run android
 yarn android
 ```
 
-### iOS
+#### iOS
 
 For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
 
@@ -62,11 +95,11 @@ If everything is set up correctly, you should see your new app running in the An
 
 This is one way to run your app — you can also build it directly from Android Studio or Xcode.
 
-## Step 3: Modify your app
+### Step 4: Modify your app
 
 Now that you have successfully run the app, let's make changes!
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
 
 When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
 
