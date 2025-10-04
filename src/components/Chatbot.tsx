@@ -10,7 +10,7 @@ import {
   Platform,
   Alert,
 } from 'react-native';
-import Voice from 'react-native-voice';
+import Voice from '@react-native-voice/voice';
 import {useAlarmList} from '../context/AlarmListContext';
 
 interface ChatMessage {
