@@ -8,7 +8,9 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from 'react-native';
+import Voice from 'react-native-voice';
 import {useAlarmList} from '../context/AlarmListContext';
 
 interface ChatMessage {
@@ -29,6 +31,7 @@ const Chatbot: React.FC = () => {
     },
   ]);
   const [inputText, setInputText] = useState('');
+  const [isListening, setIsListening] = useState(false);
   const flatListRef = useRef<FlatList>(null);
 
   const addMessage = (text: string, isUser: boolean) => {
@@ -134,6 +137,21 @@ const Chatbot: React.FC = () => {
     addMessage("I can only help with alarms right now. Try commands like 'Set alarm at 6 AM', 'Show my alarms', or 'Delete alarm at 7 PM'.", false);
   };
 
+  const handleVoicePress = async () => {
+    try {
+      if (isListening) {
+        await Voice.stop();
+        setIsListening(false);
+      } else {
+        setInputText('');
+        await Voice.start('en-US');
+      }
+    } catch (e) {
+      console.error('Voice start/stop error:', e);
+      Alert.alert('Voice Error', 'Could not start voice recognition.');
+    }
+  };
+
   const handleSend = () => {
     if (inputText.trim()) {
       addMessage(inputText, true);
@@ -147,6 +165,25 @@ const Chatbot: React.FC = () => {
       flatListRef.current.scrollToEnd({animated: true});
     }
   }, [messages]);
+
+  useEffect(() => {
+    Voice.onSpeechStart = () => setIsListening(true);
+    Voice.onSpeechEnd = () => setIsListening(false);
+    Voice.onSpeechResults = (e) => {
+      if (e.value && e.value.length > 0) {
+        setInputText(e.value[0]);
+      }
+    };
+    Voice.onSpeechError = (e) => {
+      console.error('Voice error:', e);
+      setIsListening(false);
+      Alert.alert('Voice Error', 'Could not process voice input. Please try again.');
+    };
+
+    return () => {
+      Voice.destroy().then(Voice.removeAllListeners);
+    };
+  }, []);
 
   const renderMessage = ({item}: {item: ChatMessage}) => (
     <View style={[styles.messageContainer, item.isUser ? styles.userMessage : styles.botMessage]}>
@@ -175,6 +212,14 @@ const Chatbot: React.FC = () => {
       />
 
       <View style={styles.inputContainer}>
+        <TouchableOpacity
+          style={[styles.voiceButton, isListening && styles.voiceButtonActive]}
+          onPress={handleVoicePress}
+        >
+          <Text style={styles.voiceButtonText}>
+            {isListening ? '🎙️' : '🎤'}
+          </Text>
+        </TouchableOpacity>
         <TextInput
           style={styles.textInput}
           value={inputText}
@@ -240,6 +285,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#2E3440',
     borderTopWidth: 1,
     borderTopColor: '#434C5E',
+  },
+  voiceButton: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: '#5E81AC',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 12,
+  },
+  voiceButtonActive: {
+    backgroundColor: '#A3BE8C',
+  },
+  voiceButtonText: {
+    fontSize: 24,
   },
   textInput: {
     flex: 1,
