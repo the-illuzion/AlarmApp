@@ -1,0 +1,42 @@
+buildscript {
+    ext {
+        buildToolsVersion = "36.0.0"
+        minSdkVersion = 24
+        compileSdkVersion = 36
+        targetSdkVersion = 36
+        ndkVersion = "27.1.12297006"
+        kotlinVersion = "2.1.20"
+    }
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("com.android.tools.build:gradle")
+        classpath("com.facebook.react:react-native-gradle-plugin")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
+        classpath 'com.google.gms:google-services:4.4.2'
+
+    }
+}
+
+apply plugin: "com.facebook.react.rootproject"
+apply plugin: 'com.google.gms.google-services'
+
+
+// ADD THIS SECTION:
+allprojects {
+    repositories {
+        maven {
+            url "$rootDir/../node_modules/react-native-background-fetch/android/libs"
+        }
+        maven {
+            url 'https://dl.cloudsmith.io/public/transistorsoft/react-native-background-fetch/maven/'
+        }
+        maven { 
+            url "https://www.transistorsoft.com/repo" 
+        }
+        google()
+        mavenCentral()
+    }
+}
